@@ -21,5 +21,8 @@ jobs:
     - name: 🎲 Iniciando o Bando de Dados
       run: docker compose up -d postgress
 
-    - name: Test
+    - name: 🧪 Teste com o lint
+      run: docker run --rm -itv $(pwd):/app -w /app golangci/golangci-lint golangci-lint run controllers/ database/ models/ routes/
+
+    - name: 🧪 Teste com o Go
       run: go test -v main_test.go
