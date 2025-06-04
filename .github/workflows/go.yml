@@ -19,10 +19,13 @@ jobs:
         go-version: '1.22'
 
     - name: 🎲 Iniciando o Bando de Dados
-      run: docker compose up -d postgress
+      run: docker compose up -d postgres
 
-    - name: 🧪 Teste com o lint
-      run: docker run --rm -itv $(pwd):/app -w /app golangci/golangci-lint golangci-lint run controllers/ database/ models/ routes/
+    - name: Lint
+      uses: golangci/golangci-lint-action@v6
+      with:
+        version: v1.59
+        args: controllers/ database/ models/ routes/
 
     - name: 🧪 Teste com o Go
       run: go test -v main_test.go
